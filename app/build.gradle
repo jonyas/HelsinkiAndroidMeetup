@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
@@ -17,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -24,6 +29,20 @@ dependencies {
 
     // Android support libraries
     compile 'com.android.support:design:23.1.1'
+
+    // Butterknife library to ease the access to inject views in activities and fragments
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    // RxJava and RxAndroid libraries
+    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxjava:1.0.16'
+
+    // Ice Pick libraries
+    compile 'frankiesardo:icepick:3.1.0'
+    provided 'frankiesardo:icepick-processor:3.1.0'
+
+    // Retrolambda library
+    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.0.6'
 
     // Retrofit Library
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
