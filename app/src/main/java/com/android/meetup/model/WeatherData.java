@@ -18,6 +18,21 @@ public class WeatherData {
         public double temp;
         public double temp_min;
         public double temp_max;
+
+        public double getTempInCelsius() {
+
+            return temp - 273.15;
+        }
+
+        public double getTempMinInCelsius() {
+
+            return temp_min - 273.15;
+        }
+
+        public double getTempMaxInCelsius() {
+
+            return temp_max - 273.15;
+        }
     }
 
     public class Weather {
