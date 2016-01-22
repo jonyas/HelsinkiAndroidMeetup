@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(weatherData -> {
                     // Show Result
-                    textView.setText(String.format("The weather in %s is \"%s\"", weatherData.name,
-                            weatherData.weatherInformationList.get(0).description));
+                    textView.setText(String.format("The weather in %s is \"%s\" and temperature " +
+                            "is %.2fºC", weatherData.name, weatherData.weatherInformationList.get(0)
+                            .description, weatherData.temperature.getTempInCelsius()));
                 }, throwable -> {
 
                     throwable.printStackTrace();
