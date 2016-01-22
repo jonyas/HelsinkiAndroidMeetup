@@ -22,6 +22,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Android support libraries
+    compile 'com.android.support:design:23.1.1'
+
     // Retrofit Library
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
     // GSON converter for retrofit

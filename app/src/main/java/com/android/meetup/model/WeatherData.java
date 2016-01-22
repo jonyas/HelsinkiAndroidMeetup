@@ -2,6 +2,8 @@ package com.android.meetup.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Weather POJO
  *
@@ -10,8 +12,11 @@ import com.google.gson.annotations.SerializedName;
 public class WeatherData {
 
     @SerializedName("main")
-    public Main weatherInfo;
-    public Weather weather;
+    public Main temperature;
+    @SerializedName("weather")
+    public List<Weather> weatherInformationList;
+
+    public String name;
 
     public class Main {
 
