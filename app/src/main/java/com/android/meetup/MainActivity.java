@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import com.android.meetup.model.WeatherData;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
+
 public class MainActivity extends AppCompatActivity {
 
     private final String jsonData = "{\n" +
@@ -52,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             "  \"cod\": 200\n" +
             "}\n";
 
-    private WeatherData weatherData;
-
     private TextView textView;
 
     @Override
@@ -64,11 +66,25 @@ public class MainActivity extends AppCompatActivity {
         // Text View
         textView = (TextView) findViewById(R.id.activity_main_text);
 
-        // Parse
-        weatherData = new GsonBuilder().create().fromJson(jsonData, WeatherData.class);
+        // Load JSON data in a separate thread
+        Observable.create(new Observable.OnSubscribe<WeatherData>() {
 
-        // Show Result
-        textView.setText(String.format("The weather in %s is \"%s\"", weatherData.name, weatherData
-                .weatherInformationList.get(0).description));
+            @Override
+            public void call(Subscriber<? super WeatherData> subscriber) {
+
+                subscriber.onNext(new GsonBuilder().create().fromJson(jsonData, WeatherData.class));
+            }
+
+        }).subscribe(weatherData -> {
+
+            // Show Result
+            textView.setText(String.format("The weather in %s is \"%s\"", weatherData.name,
+                    weatherData
+                            .weatherInformationList.get(0).description));
+        }, throwable -> {
+
+            throwable.printStackTrace();
+        });
+
     }
 }
