@@ -4,11 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Weather POJO
- *
- * Created by jduran on 22/01/16.
- */
 public class WeatherData {
 
     @SerializedName("main")
