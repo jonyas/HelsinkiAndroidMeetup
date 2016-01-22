@@ -10,7 +10,8 @@ import com.android.meetup.model.WeatherData;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 subscriber.onNext(new GsonBuilder().create().fromJson(jsonData, WeatherData.class));
             }
 
-        }).subscribe(weatherData -> {
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe
+                (weatherData -> {
 
             // Show Result
             textView.setText(String.format("The weather in %s is \"%s\"", weatherData.name,
