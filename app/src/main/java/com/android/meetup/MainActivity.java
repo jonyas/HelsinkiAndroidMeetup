@@ -2,7 +2,6 @@ package com.android.meetup;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 import com.android.meetup.manager.LocationManager;
 import com.android.meetup.manager.WeatherManager;
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private WeatherManager weatherManager;
 
-    @Bind(R.id.activity_main_text) TextView textView;
+    @Bind(R.id.activity_main_image) SimpleDraweeView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
