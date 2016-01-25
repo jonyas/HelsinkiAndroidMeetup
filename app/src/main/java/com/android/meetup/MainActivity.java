@@ -2,6 +2,7 @@ package com.android.meetup;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.android.meetup.manager.LocationManager;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                             .description, weatherData.temperature.getTempInCelsius()));
                 }, throwable -> {
 
-                    throwable.printStackTrace();
+                    Log.e("MEETUP", "Error", throwable);
                 });
 
     }
