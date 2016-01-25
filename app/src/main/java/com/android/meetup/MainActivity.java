@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     if (weatherData.temperature.getTempInCelsius() <= 0) {
                         draweeController = Fresco.newDraweeControllerBuilder()
                                 .setUri(Uri.parse("http://www.myangelcardreadings" +
-                                        ".com/images/snow19.gif")).setAutoPlayAnimations(true)
+                                        ".com/images/snowdance.gif")).setAutoPlayAnimations(true)
                                 .build();
                     } else {
                         // If more than 0, sunny GIF
