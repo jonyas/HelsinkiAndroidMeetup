@@ -47,6 +47,9 @@ dependencies {
     // Retrolambda library
     retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.0.6'
 
+    // Fresco library
+    compile 'com.facebook.fresco:fresco:0.9.0'
+
     // Retrofit Library
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
     // GSON converter for retrofit
