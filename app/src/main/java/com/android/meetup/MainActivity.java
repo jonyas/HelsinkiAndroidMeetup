@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.android.meetup.model.WeatherData;
@@ -79,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe
                 (weatherData -> {
 
-            // Show Result
-            textView.setText(String.format("The weather in %s is \"%s\"", weatherData.name,
-                    weatherData
-                            .weatherInformationList.get(0).description));
-        }, throwable -> {
+                    // Show Result
+                    textView.setText(String.format("The weather in %s is \"%s\"", weatherData.name,
+                            weatherData
+                                    .weatherInformationList.get(0).description));
+                }, throwable -> {
 
-            throwable.printStackTrace();
-        });
+                    Log.e("MEETUP", "Error", throwable);
+                });
 
     }
 }
