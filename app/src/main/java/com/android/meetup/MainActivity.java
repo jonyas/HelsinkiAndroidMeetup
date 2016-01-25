@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.android.meetup.manager.LocationManager;
 import com.android.meetup.manager.WeatherManager;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -15,18 +17,18 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private WeatherManager weatherManager;
 
-    private TextView textView;
+    @Bind(R.id.activity_main_text) TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inject views using butter knife
+        ButterKnife.bind(this);
+
         locationManager = new LocationManager();
         weatherManager = new WeatherManager();
-
-        // Text View
-        textView = (TextView) findViewById(R.id.activity_main_text);
 
         // Load current location
         locationManager.loadCurrentLocation().flatMap(latLng ->
