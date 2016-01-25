@@ -3,6 +3,7 @@ package com.android.meetup;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.android.meetup.manager.LocationManager;
 import com.android.meetup.manager.WeatherManager;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }, throwable -> {
 
-                    throwable.printStackTrace();
+                    Log.e("MEETUP", "Error", throwable);
                 });
 
     }
