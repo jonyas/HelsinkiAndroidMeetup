@@ -1,10 +1,14 @@
 package com.android.meetup;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.meetup.manager.LocationManager;
 import com.android.meetup.manager.WeatherManager;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private WeatherManager weatherManager;
 
+    private DraweeController draweeController;
+
     @Bind(R.id.activity_main_image) SimpleDraweeView imageView;
 
     @Override
@@ -26,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
         // Inject views using butter knife
         ButterKnife.bind(this);
 
+        // Init view animation controller
+        draweeController = Fresco.newDraweeControllerBuilder().setAutoPlayAnimations(true).build();
+        // Set the controller to the image view
+        imageView.setController(draweeController);
+
         locationManager = new LocationManager();
         weatherManager = new WeatherManager();
 
@@ -35,10 +46,17 @@ public class MainActivity extends AppCompatActivity {
                 weatherManager.loadWeatherOfLocation(latLng)
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(weatherData -> {
-                    // Show Result
-                    textView.setText(String.format("The weather in %s is \"%s\" and temperature " +
-                            "is %.2fºC", weatherData.name, weatherData.weatherInformationList.get(0)
-                            .description, weatherData.temperature.getTempInCelsius()));
+
+                    // If less than 0, show cold GIF
+                    if (weatherData.temperature.getTempInCelsius() <= 0) {
+                        imageView.setImageURI(Uri.parse("http://www.myangelcardreadings" +
+                                ".com/images/snow19.gif"));
+                    } else {
+                        // If more than 0, sunny GIF
+                        imageView.setImageURI(Uri.parse("http://www.animatedimages" +
+                                ".org/data/media/278/animated-sun-image-0068.gif"));
+                    }
+
                 }, throwable -> {
 
                     throwable.printStackTrace();
