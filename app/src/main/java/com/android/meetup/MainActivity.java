@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private WeatherManager weatherManager;
 
-    private DraweeController draweeController;
 
     @Bind(R.id.activity_main_image) SimpleDraweeView imageView;
 
@@ -32,11 +31,6 @@ public class MainActivity extends AppCompatActivity {
         // Inject views using butter knife
         ButterKnife.bind(this);
 
-        // Init view animation controller
-        draweeController = Fresco.newDraweeControllerBuilder().setAutoPlayAnimations(true).build();
-        // Set the controller to the image view
-        imageView.setController(draweeController);
-
         locationManager = new LocationManager();
         weatherManager = new WeatherManager();
 
@@ -47,15 +41,21 @@ public class MainActivity extends AppCompatActivity {
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(weatherData -> {
 
+                    DraweeController draweeController;
                     // If less than 0, show cold GIF
                     if (weatherData.temperature.getTempInCelsius() <= 0) {
-                        imageView.setImageURI(Uri.parse("http://www.myangelcardreadings" +
-                                ".com/images/snow19.gif"));
+                        draweeController = Fresco.newDraweeControllerBuilder()
+                                .setUri(Uri.parse("http://www.myangelcardreadings" +
+                                        ".com/images/snow19.gif")).setAutoPlayAnimations(true)
+                                .build();
                     } else {
                         // If more than 0, sunny GIF
-                        imageView.setImageURI(Uri.parse("http://www.animatedimages" +
-                                ".org/data/media/278/animated-sun-image-0068.gif"));
+                        draweeController = Fresco.newDraweeControllerBuilder()
+                                .setUri(Uri.parse("http://www.animatedimages" +
+                                        ".org/data/media/278/animated-sun-image-0068.gif"))
+                                .setAutoPlayAnimations(true).build();
                     }
+                    imageView.setController(draweeController);
 
                 }, throwable -> {
 
